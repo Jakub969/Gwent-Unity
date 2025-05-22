@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LeaderCardUI : MonoBehaviour
+public class LeaderOption : MonoBehaviour
 {
-    public GameObject leaderSelectionPanel;
-    public Image cardImage;
+    public Sprite leaderSprite;
+    public LeaderCardUI target;
 
     public void OnClick()
     {
-        leaderSelectionPanel.SetActive(true);
-    }
-
-    public void SetLeader(Sprite newSprite)
-    {
-        cardImage.sprite = newSprite;
-        leaderSelectionPanel.SetActive(false);
+        target.SetLeader(leaderSprite);
     }
     // Start is called before the first frame update
     void Start()

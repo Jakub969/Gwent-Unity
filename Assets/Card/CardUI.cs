@@ -16,7 +16,7 @@ public class CardUI : MonoBehaviour
    
     public void OnClick()
     {
-        // Presunie kartu do "vybraných kariet"
+        
         transform.SetParent(targetParent, false);
     }
     // Start is called before the first frame update
