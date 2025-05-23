@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf15ceda6a1e87438733d461609c1e5, type: 3}
+  m_Name: katapult
+  m_EditorClassIdentifier: 
+  cardName: Katapult
+  artwork: {fileID: 21300000, guid: a9907cbd03e2f19458eb7f434add5eb5, type: 3}
+  strength: 8
+  row: 2
+  ability: 7

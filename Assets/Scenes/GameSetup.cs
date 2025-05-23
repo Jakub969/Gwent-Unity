@@ -8,6 +8,9 @@ public class GameSetup : MonoBehaviour
     public Image leaderImage;
     public Transform playerHandParent;
     public GameObject cardPrefab;
+    public Transform meleeRow;
+    public Transform rangedRow;
+    public Transform siegeRow;
 
     void Start()
     {
@@ -18,8 +21,22 @@ public class GameSetup : MonoBehaviour
             GameObject card = Instantiate(cardPrefab, playerHandParent);
             card.GetComponent<Image>().sprite = sprite;
 
-            // MÙûeö sem daù skript na drag & drop neskÙr
+            // NaprÌklad rozdelenie podæa n·zvu alebo indexu
+            RowType type = RowType.Melee; // default
+
+            if (sprite.name.ToLower().Contains("ranged")) type = RowType.Ranged;
+            if (sprite.name.ToLower().Contains("siege")) type = RowType.Siege;
+
+            var logic = card.AddComponent<CardInHand>();
+            logic.cardSprite = sprite;
+            logic.rowType = type;
+            logic.meleeRow = meleeRow;
+            logic.rangedRow = rangedRow;
+            logic.siegeRow = siegeRow;
+            card.GetComponent<Button>().onClick.AddListener(logic.PlayCard);
+
         }
+
     }
 
     // Update is called once per frame

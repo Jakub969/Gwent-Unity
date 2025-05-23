@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf15ceda6a1e87438733d461609c1e5, type: 3}
+  m_Name: dethmold
+  m_EditorClassIdentifier: 
+  cardName: Dethmold
+  artwork: {fileID: 21300000, guid: ee30ce4e06bf73941a5c7cae1cec5b7b, type: 3}
+  strength: 6
+  row: 1
+  ability: 0
