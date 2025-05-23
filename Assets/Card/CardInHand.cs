@@ -10,6 +10,9 @@ public class CardInHand : MonoBehaviour
     public Transform meleeRow;
     public Transform rangedRow;
     public Transform siegeRow;
+    public Transform enemySiegeRow;
+    public Transform enemyMeleeRow;
+    public Transform enemyRangedRow;
 
     public void OnClick()
     {
@@ -28,8 +31,37 @@ public class CardInHand : MonoBehaviour
                 break;
         }
 
-        // Presuò kartu do cie¾ového radu
-        transform.SetParent(targetRow, false);
+        if (cardData.ability == CardAbility.Spy && cardData.row == RowType.Melee)
+        {
+            Debug.Log("Karta je špión – hrá sa na súpera, hráè potiahne 2 karty");
+            Debug.Log(enemyMeleeRow);
+            // Hra na súpera – sem dáš neskôr enemy row
+            transform.SetParent(enemyMeleeRow, false);
+            //Debug.Log("Nový rodiè: " + transform.parent.name);
+            //Debug.Log("Lokálna pozícia: " + transform.localPosition);
+
+
+            // Potiahni 2 karty z balíka hráèa
+            GameManager.Instance.deckManager.DrawCard(2);
+
+
+        }
+        else if (cardData.ability == CardAbility.Spy && cardData.row == RowType.Siege)
+        {
+            transform.SetParent(enemySiegeRow, false); // doèasne daj sem enemyMeleeRow
+
+            // Potiahni 2 karty z balíka hráèa
+            GameManager.Instance.deckManager.DrawCard(2);
+
+
+        }
+        else
+        {
+            // Normálne zahratie
+            Debug.Log("Karta " + cardData.cardName);
+            Debug.Log("Posielam kartu do: " + cardData.row);
+            transform.SetParent(targetRow, false);
+        }
     }
     // Start is called before the first frame update
     void Start()

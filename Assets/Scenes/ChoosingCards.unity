@@ -1658,7 +1658,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1255108908}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999911
+  m_Size: 0.999893
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2140,6 +2140,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7537996014045097167, guid: e4d9f13743926ae4fa8a400e0a73e776, type: 3}
+      propertyPath: deckManager
+      value: 
+      objectReference: {fileID: 1961586266398273902, guid: 09c56a9da956eb14991d93cfe4131c68, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

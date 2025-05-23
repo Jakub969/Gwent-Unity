@@ -5,7 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    public List<CardData> playerHand = new List<CardData>();
+    public List<CardData> playerDeck = new List<CardData>();
+    public DeckManager deckManager; // pripojíš cez Inspector
     public LeaderData selectedLeader;
     public List<CardData> selectedCards = new List<CardData>();
 

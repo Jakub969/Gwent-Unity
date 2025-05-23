@@ -24,8 +24,7 @@ public class DeckConfirm : MonoBehaviour
             var display = card.GetComponent<CardDisplay>();
             if (display != null && display.cardData != null)
             {
-                GameManager.Instance.selectedCards.Add(display.cardData);
-                Debug.Log("Pridaná karta: " + display.cardData.cardName);
+                GameManager.Instance.playerDeck.Add(display.cardData);
             }
             else
             {
