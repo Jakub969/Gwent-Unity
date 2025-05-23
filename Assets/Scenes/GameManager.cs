@@ -6,11 +6,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public Sprite selectedLeader;
-    public List<Sprite> selectedCards = new List<Sprite>();
+    public LeaderData selectedLeader;
+    public List<CardData> selectedCards = new List<CardData>();
 
     void Awake()
     {
+        Debug.Log(selectedCards.Count);
         if (Instance == null)
         {
             Instance = this;

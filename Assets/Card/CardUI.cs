@@ -6,14 +6,22 @@ using UnityEngine.UI;
 public class CardUI : MonoBehaviour
 {
     public Image cardImage;
+    public CardData cardData;
+
     private Transform targetParent;
 
-    public void Init(Sprite sprite, Transform target)
+    public void Init(CardData data, Transform target)
     {
-        cardImage.sprite = sprite;
+        cardData = data;
         targetParent = target;
+        cardImage.sprite = cardData.artwork;
+        var display = GetComponent<CardDisplay>();
+        if (display != null)
+        {
+            display.cardData = data;
+        }
     }
-   
+
     public void OnClick()
     {
         

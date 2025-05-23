@@ -5,22 +5,58 @@ using UnityEngine.UI;
 
 public class LeaderCardUI : MonoBehaviour
 {
+    [Header("Common")]
+    public LeaderData leaderData;
+    public Image artworkImage;
+    public Text descriptionText;
+    public bool isInGameScene = false;
+
+    [Header("Choosing Scene Only")]
     public GameObject leaderSelectionPanel;
-    public Transform leaderOptionsParent; // napr. Grid
+    public Transform leaderOptionsParent;
     public GameObject leaderOptionPrefab;
-    public Image cardImage;
-    public List<Sprite> availableLeaders;
+    public List<LeaderData> availableLeaders;
+
+    public void Start()
+    {
+        if (leaderData != null && artworkImage != null)
+        {
+            artworkImage.sprite = leaderData.artwork;
+            if (descriptionText != null)
+                descriptionText.text = leaderData.description;
+        }
+    }
 
     public void OnClick()
     {
-        leaderSelectionPanel.SetActive(true);
-        SpawnLeaderOptions();
+        if (isInGameScene)
+        {
+            // Aktivuj schopnosù lÌdra
+            if (leaderData != null && leaderData.ability != null)
+            {
+                leaderData.ability.Activate();
+            }
+        }
+        else
+        {
+            // Zobraziù panel v˝beru vodcu
+            if (leaderSelectionPanel != null)
+            {
+                leaderSelectionPanel.SetActive(true);
+                SpawnLeaderOptions();
+            }
+        }
     }
 
-    public void SetLeader(Sprite newSprite)
+    public void SetLeader(LeaderData newLeader)
     {
-        cardImage.sprite = newSprite;
-        leaderSelectionPanel.SetActive(false);
+        leaderData = newLeader;
+        artworkImage.sprite = newLeader.artwork;
+        if (descriptionText != null)
+            descriptionText.text = newLeader.description;
+
+        if (!isInGameScene)
+            leaderSelectionPanel.SetActive(false);
     }
 
     private void SpawnLeaderOptions()
@@ -30,24 +66,13 @@ public class LeaderCardUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (var sprite in availableLeaders)
+        foreach (var leader in availableLeaders)
         {
             GameObject option = Instantiate(leaderOptionPrefab, leaderOptionsParent);
-            var optionScript = option.GetComponent<LeaderOption>();
-            optionScript.leaderSprite = sprite;
+            LeaderOption optionScript = option.GetComponent<LeaderOption>();
+            optionScript.leaderData = leader;
             optionScript.target = this;
-            option.GetComponent<Image>().sprite = sprite;
+            option.GetComponent<Image>().sprite = leader.artwork;
         }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

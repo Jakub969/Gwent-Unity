@@ -11,11 +11,22 @@ public class CardDisplay : MonoBehaviour
     public Text strengthText;
     public Text nameText;
 
-    void Start()
+    public void Setup()
     {
-        artworkImage.sprite = cardData.artwork;
-        strengthText.text = cardData.strength.ToString();
-        nameText.text = cardData.cardName;
+        if (cardData == null)
+        {
+            Debug.LogWarning("cardData je null!");
+            return;
+        }
+
+        if (artworkImage != null)
+            artworkImage.sprite = cardData.artwork;
+
+        if (strengthText != null)
+            strengthText.text = cardData.strength.ToString();
+
+        if (nameText != null)
+            nameText.text = cardData.cardName;
     }
 
     // Update is called once per frame

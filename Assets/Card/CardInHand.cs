@@ -5,37 +5,31 @@ using UnityEngine.UI;
 
 public class CardInHand : MonoBehaviour
 {
-    public Sprite cardSprite;
-    public RowType rowType;
+    public CardData cardData;
+
     public Transform meleeRow;
     public Transform rangedRow;
     public Transform siegeRow;
 
-
-    public void PlayCard()
+    public void OnClick()
     {
-        Transform target = meleeRow; // default fallback
+        Transform targetRow = meleeRow; // default
 
-        switch (rowType)
+        switch (cardData.row)
         {
             case RowType.Melee:
-                target = meleeRow;
+                targetRow = meleeRow;
                 break;
             case RowType.Ranged:
-                target = rangedRow;
+                targetRow = rangedRow;
                 break;
             case RowType.Siege:
-                target = siegeRow;
+                targetRow = siegeRow;
                 break;
         }
 
-        GameObject newCard = new GameObject("PlayedCard");
-        newCard.transform.SetParent(target, false);
-
-        var image = newCard.AddComponent<Image>();
-        image.sprite = cardSprite;
-
-        Destroy(gameObject);
+        // Presuò kartu do cie¾ového radu
+        transform.SetParent(targetRow, false);
     }
     // Start is called before the first frame update
     void Start()

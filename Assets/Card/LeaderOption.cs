@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class LeaderOption : MonoBehaviour
 {
-    public Sprite leaderSprite;
+    public LeaderData leaderData;
     public LeaderCardUI target;
 
     public void OnClick()
     {
-        target.SetLeader(leaderSprite);
+        target.SetLeader(leaderData);
     }
     // Start is called before the first frame update
     void Start()

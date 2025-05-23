@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3846451915848203463}
   - component: {fileID: 8437917346063147845}
   - component: {fileID: 8633657426377856278}
+  - component: {fileID: -3825973213535822093}
   m_Layer: 5
   m_Name: CardUIPrefab
   m_TagString: Untagged
@@ -146,3 +147,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardImage: {fileID: 3846451915848203463}
+  cardData: {fileID: 0}
+--- !u!114 &-3825973213535822093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4317200883354632734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 308ec64fecf070643b651ffa2148a873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardData: {fileID: 0}
+  artworkImage: {fileID: 3846451915848203463}
+  strengthText: {fileID: 0}
+  nameText: {fileID: 0}

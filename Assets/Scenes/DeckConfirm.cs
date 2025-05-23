@@ -5,31 +5,35 @@ using UnityEngine.SceneManagement;
 
 public class DeckConfirm : MonoBehaviour
 {
-    public LeaderCardUI leaderCardUI;
+    public LeaderCardUI leaderCardUI;           
     public Transform cardsInDeckParent;
 
     public void StartGame()
     {
-        GameManager.Instance.selectedLeader = leaderCardUI.cardImage.sprite;
+        if (leaderCardUI == null)
+        {
+            Debug.LogError("LeaderCardUI nie je priradený!");
+            return;
+        }
+
+        GameManager.Instance.selectedLeader = leaderCardUI.leaderData;
 
         GameManager.Instance.selectedCards.Clear();
         foreach (Transform card in cardsInDeckParent)
         {
-            Sprite sprite = card.GetComponent<UnityEngine.UI.Image>().sprite;
-            GameManager.Instance.selectedCards.Add(sprite);
+            var display = card.GetComponent<CardDisplay>();
+            if (display != null && display.cardData != null)
+            {
+                GameManager.Instance.selectedCards.Add(display.cardData);
+                Debug.Log("Pridaná karta: " + display.cardData.cardName);
+            }
+            else
+            {
+                Debug.LogWarning("Karta nemá CardDisplay alebo cardData!");
+            }
         }
 
-        SceneManager.LoadScene("GameScene");
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        SceneManager.LoadScene("GameScene");
     }
 }

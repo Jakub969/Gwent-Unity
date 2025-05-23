@@ -12,29 +12,25 @@ public class GameSetup : MonoBehaviour
     public Transform rangedRow;
     public Transform siegeRow;
 
+
     void Start()
     {
-        leaderImage.sprite = GameManager.Instance.selectedLeader;
-
-        foreach (var sprite in GameManager.Instance.selectedCards)
+        leaderImage.sprite = GameManager.Instance.selectedLeader.artwork;
+        
+        foreach (var data in GameManager.Instance.selectedCards)
         {
             GameObject card = Instantiate(cardPrefab, playerHandParent);
-            card.GetComponent<Image>().sprite = sprite;
+            CardDisplay display = card.GetComponent<CardDisplay>();
+            display.cardData = data;
+            display.Setup();
 
-            // Napríklad rozdelenie pod¾a názvu alebo indexu
-            RowType type = RowType.Melee; // default
-
-            if (sprite.name.ToLower().Contains("ranged")) type = RowType.Ranged;
-            if (sprite.name.ToLower().Contains("siege")) type = RowType.Siege;
-
-            var logic = card.AddComponent<CardInHand>();
-            logic.cardSprite = sprite;
-            logic.rowType = type;
+            CardInHand logic = card.AddComponent<CardInHand>();
+            logic.cardData = data;
             logic.meleeRow = meleeRow;
             logic.rangedRow = rangedRow;
             logic.siegeRow = siegeRow;
-            card.GetComponent<Button>().onClick.AddListener(logic.PlayCard);
 
+            card.GetComponent<Button>().onClick.AddListener(logic.OnClick);
         }
 
     }

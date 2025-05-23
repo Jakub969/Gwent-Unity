@@ -7,15 +7,15 @@ public class CardSpawner : MonoBehaviour
     public GameObject cardPrefab;
     public Transform collectionParent;
     public Transform deckParent;
-    public List<Sprite> cardSprites;
+    public List<CardData> cardsData;
     // Start is called before the first frame update
     void Start()
     {
-        foreach (var sprite in cardSprites)
+        foreach (var data in cardsData)
         {
             GameObject card = Instantiate(cardPrefab, collectionParent);
             CardUI ui = card.GetComponent<CardUI>();
-            ui.Init(sprite, deckParent);
+            ui.Init(data, deckParent);
         }
     }
 
