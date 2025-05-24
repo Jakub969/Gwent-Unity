@@ -26,13 +26,40 @@ public class CardDisplay : MonoBehaviour
         //nameText.text = cardData.cardName;
     }
 
-    public void UpdateDisplay() {
-        strengthText.text = (cardData.strength + bonus).ToString();
+    public void UpdateDisplayWithRow(Transform row)
+    {
+        int final = GetCurrentStrengthWithBond(row);
+
+        if (strengthText != null)
+            strengthText.text = final.ToString();
     }
+
+
 
     public int GetCurrentStrength()
     {
         return cardData.strength + bonus;
+    }
+
+    public int GetCurrentStrengthWithBond(Transform row)
+    {
+        if (cardData.ability != CardAbility.TightBond)
+            return cardData.strength + bonus;
+
+        int sameCardCount = 0;
+
+        foreach (Transform card in row)
+        {
+            var display = card.GetComponent<CardDisplay>();
+            if (display != null &&
+                display.cardData.cardName == this.cardData.cardName &&
+                display.cardData.ability == CardAbility.TightBond)
+            {
+                sameCardCount++;
+            }
+        }
+
+        return (cardData.strength * sameCardCount) + bonus;
     }
 
     void Start()

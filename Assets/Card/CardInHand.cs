@@ -16,7 +16,7 @@ public class CardInHand : MonoBehaviour
 
     public void OnClick()
     {
-       
+        
         Transform targetRow = meleeRow; // default
 
         switch (cardData.row)
@@ -62,6 +62,9 @@ public class CardInHand : MonoBehaviour
             Debug.Log("Karta " + cardData.cardName);
             Debug.Log("Posielam kartu do: " + cardData.row);
             transform.SetParent(targetRow, false);
+            var display = GetComponent<CardDisplay>();
+            display.UpdateDisplayWithRow(targetRow);
+
             if (cardData.ability == CardAbility.MoraleBoost)
             {
                 foreach (Transform child in targetRow)
@@ -72,7 +75,7 @@ public class CardInHand : MonoBehaviour
                     if (otherDisplay != null)
                     {
                         otherDisplay.bonus += 1;
-                        otherDisplay.UpdateDisplay();
+                        otherDisplay.UpdateDisplayWithRow(targetRow);
                     }
                 }
             }
@@ -92,11 +95,16 @@ public class CardInHand : MonoBehaviour
             if (moraleBoostPresent && cardData.ability != CardAbility.MoraleBoost)
             {
                 GetComponent<CardDisplay>().bonus += 1;
-                GetComponent<CardDisplay>().UpdateDisplay();
                 Debug.Log("Morale Boost aplikovaný dodatoène na kartu: " + cardData.cardName);
             }
+            foreach (Transform card in targetRow)
+            {
+                var displayCard = card.GetComponent<CardDisplay>();
+                if (displayCard != null)
+                    displayCard.UpdateDisplayWithRow(targetRow);
+            }
+
         }
-        
     }
     // Start is called before the first frame update
     void Start()

@@ -40,7 +40,7 @@ public class AIScoreManager : MonoBehaviour
         {
             CardDisplay display = card.GetComponent<CardDisplay>();
             if (display != null)
-                sum += display.cardData.strength + display.bonus;
+                sum += display.GetCurrentStrengthWithBond(row);
         }
         return sum;
     }
