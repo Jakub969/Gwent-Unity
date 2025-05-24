@@ -35,14 +35,28 @@ public class GameSetup : MonoBehaviour
             GameManager.Instance.playerHand.Add(allCards[i]);
 
         for (int i = handCount; i < allCards.Count; i++)
+        {
             GameManager.Instance.playerDeck.Add(allCards[i]);
+        }
 
 
         foreach (var data in GameManager.Instance.playerHand)
         {
+            if (data.artwork == null)
+            {
+                Debug.LogWarning("Karta " + data.cardName + " nemá artwork!");
+            }
+            if (data.cardName == null || data.cardName.Trim() == "")
+            {
+                Debug.LogWarning("Karta má prázdny názov!");
+            }
+
             GameObject card = Instantiate(cardPrefab, playerHandParent);
             CardDisplay display = card.GetComponent<CardDisplay>();
             display.cardData = data;
+            Debug.Log("Card name: " + data.cardName);
+            Debug.Log("Card artwork: " + data.artwork);
+            Debug.Log("Card description: " + data.strength);
             display.Setup();
 
             CardInHand logic = card.AddComponent<CardInHand>();
@@ -55,7 +69,6 @@ public class GameSetup : MonoBehaviour
             logic.enemySiegeRow = enemySiegeRow;
             card.GetComponent<Button>().onClick.AddListener(logic.OnClick);
         }
-
     }
     void Shuffle(List<CardData> list)
     {

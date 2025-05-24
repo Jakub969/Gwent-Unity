@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c03d5e5e7fc78a47875c132b9bd45f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyMeleeRow: {fileID: 0}
+  enemySiegeRow: {fileID: 0}
   playerHandParent: {fileID: 0}
-  cardPrefab: {fileID: 4317200883354632734, guid: 950a52fc9430f6f4cbe7ff08b557b3a7, type: 3}
+  cardPrefab: {fileID: 1425702546115477837, guid: 0b261c280c0ccf34b8a09cf62b9a9742, type: 3}
   meleeRow: {fileID: 0}
   rangedRow: {fileID: 0}
   siegeRow: {fileID: 0}
-  playerDeck: []

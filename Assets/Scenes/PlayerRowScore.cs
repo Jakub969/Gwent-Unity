@@ -15,7 +15,7 @@ public class PlayerRowScore : MonoBehaviour
             CardDisplay display = card.GetComponent<CardDisplay>();
             if (display != null && display.cardData != null)
             {
-                total += display.cardData.strength;
+                total += display.GetCurrentStrength();
             }
         }
 
@@ -29,7 +29,7 @@ public class PlayerRowScore : MonoBehaviour
             CardDisplay display = card.GetComponent<CardDisplay>();
             if (display != null && display.cardData != null)
             {
-                total += display.cardData.strength;
+                total += display.GetCurrentStrength();
             }
         }
         return total;

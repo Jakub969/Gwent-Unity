@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log(selectedCards.Count);
+        
         if (Instance == null)
         {
             Instance = this;

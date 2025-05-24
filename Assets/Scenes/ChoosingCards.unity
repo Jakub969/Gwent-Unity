@@ -898,7 +898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71aba8c6d87fc1748aff8f1f577f0c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardPrefab: {fileID: 4317200883354632734, guid: 950a52fc9430f6f4cbe7ff08b557b3a7, type: 3}
+  cardPrefab: {fileID: 5442204350367057678, guid: e82bca258f1905143982990e2a8976d6, type: 3}
   collectionParent: {fileID: 1344490729}
   deckParent: {fileID: 1732674635}
   cardsData:
@@ -991,7 +991,7 @@ GameObject:
   - component: {fileID: 1017225048}
   - component: {fileID: 1017225050}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: StartGameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1467,8 +1467,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 140, y: 140}
-  m_Spacing: {x: 20, y: 80}
+  m_CellSize: {x: 100, y: 150}
+  m_Spacing: {x: 10, y: 10}
   m_Constraint: 1
   m_ConstraintCount: 3
 --- !u!114 &1344490731
@@ -1658,7 +1658,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1255108908}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.999893
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2001,7 +2001,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 241.49918, y: -274.99994}
+  m_AnchoredPosition: {x: 241.49918, y: -275.00003}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1732674636
@@ -2024,8 +2024,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 140, y: 140}
-  m_Spacing: {x: 20, y: 80}
+  m_CellSize: {x: 100, y: 150}
+  m_Spacing: {x: 10, y: 10}
   m_Constraint: 1
   m_ConstraintCount: 3
 --- !u!114 &1732674637

@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CardDisplay : MonoBehaviour
 {
     public CardData cardData;
 
     public Image artworkImage;
-    public Text strengthText;
-    public Text nameText;
+    public TMP_Text strengthText;
+    //public Text nameText;
+    public int bonus = 0;
 
     public void Setup()
     {
@@ -19,16 +21,24 @@ public class CardDisplay : MonoBehaviour
             return;
         }
 
-        if (artworkImage != null)
-            artworkImage.sprite = cardData.artwork;
-
-        if (strengthText != null)
-            strengthText.text = cardData.strength.ToString();
-
-        if (nameText != null)
-            nameText.text = cardData.cardName;
+        artworkImage.sprite = cardData.artwork;
+        strengthText.text = cardData.strength.ToString();
+        //nameText.text = cardData.cardName;
     }
 
+    public void UpdateDisplay() {
+        strengthText.text = (cardData.strength + bonus).ToString();
+    }
+
+    public int GetCurrentStrength()
+    {
+        return cardData.strength + bonus;
+    }
+
+    void Start()
+    {
+        strengthText.text = cardData.strength.ToString();
+    }
     // Update is called once per frame
     void Update()
     {
