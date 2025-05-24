@@ -2,10 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
+
+
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    [HideInInspector] public GameObject winScreen;
+    [HideInInspector] public GameObject loseScreen;
+    
+
     public List<CardData> playerHand = new List<CardData>();
     public List<CardData> playerDeck = new List<CardData>();
     public DeckManager deckManager; // pripojíš cez Inspector
@@ -25,6 +33,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public Transform enemyMeleeRow;
     [HideInInspector] public Transform enemyRangedRow;
     [HideInInspector] public Transform enemySiegeRow;
+    [HideInInspector] public TMP_Text roundAIInfoText;
+    [HideInInspector] public TMP_Text roundPlayerInfoText;
+
 
     void Awake()
     {
@@ -40,6 +51,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void InitializeUI(TMP_Text playerText, TMP_Text aiText)
+    {
+        roundPlayerInfoText = playerText;
+        roundAIInfoText = aiText;
+    }
+
+
     public void CheckForEndOfRound()
     {
         if (playerPassed && aiPassed)
@@ -52,11 +70,13 @@ public class GameManager : MonoBehaviour
             if (playerScore > aiScore)
             {
                 playerRoundsWon++;
+                roundPlayerInfoText.text = "Poèet vyhraných kôl: " + playerRoundsWon;
                 Debug.Log("Hráè vyhral kolo!");
             }
             else if (aiScore > playerScore)
             {
                 aiRoundsWon++;
+                roundAIInfoText.text = "Poèet vyhraných kôl: " + aiRoundsWon;
                 Debug.Log("AI vyhralo kolo!");
             }
             else
@@ -74,12 +94,17 @@ public class GameManager : MonoBehaviour
         if (playerRoundsWon >= 2)
         {
             Debug.Log("Hráè vyhral hru!");
-            // tu môžeš naèíta výhernú obrazovku alebo reštart
+            if (winScreen != null)
+                winScreen.SetActive(true);
+            StartCoroutine(ReturnToMenuAfterDelay());
             yield break;
         }
         else if (aiRoundsWon >= 2)
         {
             Debug.Log("AI vyhralo hru!");
+            if (loseScreen != null)
+                loseScreen.SetActive(true);
+            StartCoroutine(ReturnToMenuAfterDelay());
             yield break;
         }
         Debug.Log("Zaèíname nové kolo...");
@@ -135,6 +160,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+    IEnumerator ReturnToMenuAfterDelay()
+    {
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("Menu");
     }
 
     // Start is called before the first frame update

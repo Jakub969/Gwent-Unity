@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class AIController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class AIController : MonoBehaviour
     public Transform playerRangedRow;
     public Transform playerSiegeRow;
     public GameObject cardPrefab;
+    public TMP_Text passInfoText;
 
     void Start()
     {
@@ -26,16 +28,19 @@ public class AIController : MonoBehaviour
             if (GameManager.Instance.aiPassed || GameManager.Instance.playerPassed)
                 yield break;
 
-            // PrÌklad AI pasovania po 3 ùahoch:
-            if (GameManager.Instance.enemyHand.Count <= 5)
-            {
-                GameManager.Instance.aiPassed = true;
-                Debug.Log("AI vynechalo kolo.");
-                GameManager.Instance.CheckForEndOfRound();
-                yield break;
-            }
-            yield return new WaitForSeconds(1.5f);
+        if (GameManager.Instance.enemyHand.Count <= 5 && GameManager.Instance.aiRoundsWon < 1)
+        {
+            GameManager.Instance.aiPassed = true;
+            passInfoText.text = "AI vynechalo ùah!";
+            Debug.Log("AI vynechalo kolo.");
+            GameManager.Instance.currentTurn = TurnState.Player;
+            GameManager.Instance.CheckForEndOfRound();
+            yield break;
+        }
 
+
+        yield return new WaitForSeconds(1.5f);
+            passInfoText.text = "AI hraje";
             // Zober najlepöiu kartu (s najv‰Ëöou silou)
             CardData best = null;
             int maxStrength = -1;

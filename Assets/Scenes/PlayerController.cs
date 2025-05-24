@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     {
         GameManager.Instance.playerPassed = true;
         Debug.Log("Hr·Ë vynechal kolo!");
+        GameManager.Instance.currentTurn = TurnState.AI;
         GameManager.Instance.CheckForEndOfRound();
     }
     // Start is called before the first frame update

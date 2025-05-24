@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameSetup : MonoBehaviour
 {
@@ -14,8 +15,10 @@ public class GameSetup : MonoBehaviour
     public Transform enemyMeleeRow;
     public Transform enemyRangedRow;
     public Transform enemySiegeRow;
-
-
+    public GameObject winScreen;
+    public GameObject loseScreen;
+    public TMP_Text roundAIInfoText;
+    public TMP_Text roundPlayerInfoText;
     void Start()
     {
         GameManager.Instance.playerMeleeRow = meleeRow;
@@ -24,6 +27,9 @@ public class GameSetup : MonoBehaviour
         GameManager.Instance.enemyMeleeRow = enemyMeleeRow;
         GameManager.Instance.enemyRangedRow = enemyRangedRow;
         GameManager.Instance.enemySiegeRow = enemySiegeRow;
+        GameManager.Instance.winScreen = winScreen;
+        GameManager.Instance.loseScreen = loseScreen;
+        GameManager.Instance.InitializeUI(roundPlayerInfoText, roundAIInfoText);
 
         GameManager.Instance.deckManager = FindObjectOfType<DeckManager>();
         GameManager.Instance.aiController = FindObjectOfType<AIController>();
