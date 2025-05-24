@@ -16,7 +16,8 @@ public class CardInHand : MonoBehaviour
 
     public void OnClick()
     {
-        
+        if (GameManager.Instance.currentTurn != TurnState.Player)
+            return;
         Transform targetRow = meleeRow; // default
 
         switch (cardData.row)
@@ -105,6 +106,8 @@ public class CardInHand : MonoBehaviour
             }
 
         }
+        GameManager.Instance.currentTurn = TurnState.AI;
+        GameManager.Instance.aiController.PlayAITurn();
     }
     // Start is called before the first frame update
     void Start()

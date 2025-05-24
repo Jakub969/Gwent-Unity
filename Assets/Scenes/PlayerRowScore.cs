@@ -30,5 +30,9 @@ public class PlayerRowScore : MonoBehaviour
         }
         return total;
     }
+    public void ResetScore()
+    {
+        scoreText.text = "0";
+    }
 
 }

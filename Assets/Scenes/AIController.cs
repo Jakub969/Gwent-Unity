@@ -15,18 +15,25 @@ public class AIController : MonoBehaviour
     void Start()
     {
         Debug.Log("AIController ötartuje...");
-        StartCoroutine(PlayCardsRoutine());
-        
     }
 
-    IEnumerator PlayCardsRoutine()
+    IEnumerator PlaySingleCardThenEndTurn()
     {
-        yield return new WaitForSeconds(2f); // poËkaj na hr·Ëa
+        yield return new WaitForSeconds(1f); // poËkaj na hr·Ëa
 
-        while (GameManager.Instance.enemyHand.Count > 0)
-        {
+        
             Debug.Log("AI hand size: " + GameManager.Instance.enemyHand.Count);
+            if (GameManager.Instance.aiPassed || GameManager.Instance.playerPassed)
+                yield break;
 
+            // PrÌklad AI pasovania po 3 ùahoch:
+            if (GameManager.Instance.enemyHand.Count <= 5)
+            {
+                GameManager.Instance.aiPassed = true;
+                Debug.Log("AI vynechalo kolo.");
+                GameManager.Instance.CheckForEndOfRound();
+                yield break;
+            }
             yield return new WaitForSeconds(1.5f);
 
             // Zober najlepöiu kartu (s najv‰Ëöou silou)
@@ -55,27 +62,89 @@ public class AIController : MonoBehaviour
             display.Setup();
 
             // Zahraj do spr·vneho radu
+            // Rozhodni cieæov˝ rad
             Transform targetRow = enemyMeleeRow;
-            switch (best.row)
+            if (best.ability == CardAbility.Spy)
             {
-                case RowType.Ranged: targetRow = enemyRangedRow; break;
-                case RowType.Siege: targetRow = enemySiegeRow; break;
+                switch (best.row)
+                {
+                    case RowType.Melee: targetRow = playerMeleeRow; break;
+                    case RowType.Ranged: targetRow = playerRangedRow; break;
+                    case RowType.Siege: targetRow = playerSiegeRow; break;
+                }
             }
-            if (best.ability == CardAbility.Spy && best.row == RowType.Siege) {
-                targetRow = playerSiegeRow; // Spy cards go to enemy siege row
-            }
-            else if (best.ability == CardAbility.Spy && best.row == RowType.Melee)
+            else
             {
-                targetRow = playerMeleeRow; // Spy cards go to enemy ranged row
+                switch (best.row)
+                {
+                    case RowType.Ranged: targetRow = enemyRangedRow; break;
+                    case RowType.Siege: targetRow = enemySiegeRow; break;
+                }
             }
+
 
             cardGO.transform.SetParent(targetRow, false);
             Debug.Log("AI poslal " + best.cardName + " do radu: " + best.row);
+            if (best.ability == CardAbility.Spy)
+            {
+                DrawCardsForAI(2);
+            }
+            if (best.ability == CardAbility.MoraleBoost)
+            {
+                foreach (Transform otherCard in targetRow)
+                {
+                    if (otherCard == cardGO.transform) continue;
 
+                    var d = otherCard.GetComponent<CardDisplay>();
+                    if (d != null)
+                    {
+                        d.bonus += 1;
+                        d.UpdateDisplayWithRow(targetRow);
+                    }
+                }
+            }
             // Ak treba, update bonus / strength
-            display.UpdateDisplayWithRow(targetRow);
-        }
-        Debug.Log("AI hand size: " + GameManager.Instance.enemyHand.Count);
+            // Update vöetk˝ch kariet v rade
+            foreach (Transform otherCard in targetRow)
+            {
+                var d = otherCard.GetComponent<CardDisplay>();
+                if (d != null)
+                    d.UpdateDisplayWithRow(targetRow);
+            }
+        Debug.Log("AI konËÌ ùah, ùah hr·Ëa zaËÌna");
+
+        GameManager.Instance.currentTurn = TurnState.Player;
+        Debug.Log("Aktu·lny ùah: " + GameManager.Instance.currentTurn);
+
+        //Debug.Log("AI deck size: " + GameManager.Instance.enemyDeck.Count);
+        //Debug.Log("AI hand size: " + GameManager.Instance.enemyHand.Count);
 
     }
+
+    public void PlayAITurn()
+    {
+        if (GameManager.Instance.aiPassed || GameManager.Instance.enemyHand.Count == 0)
+        {
+            GameManager.Instance.aiPassed = true;
+            Debug.Log("AI pasuje (nem· karty).");
+            GameManager.Instance.currentTurn = TurnState.Player;
+            return;
+        }
+
+        StartCoroutine(PlaySingleCardThenEndTurn());
+    }
+
+
+    void DrawCardsForAI(int count)
+    {
+        for (int i = 0; i < count && GameManager.Instance.enemyDeck.Count > 0; i++)
+        {
+            CardData drawn = GameManager.Instance.enemyDeck[0];
+            GameManager.Instance.enemyDeck.RemoveAt(0);
+            GameManager.Instance.enemyHand.Add(drawn);
+
+            Debug.Log("AI potiahlo kartu: " + drawn.cardName);
+        }
+    }
+
 }

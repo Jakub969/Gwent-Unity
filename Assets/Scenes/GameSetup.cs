@@ -18,7 +18,15 @@ public class GameSetup : MonoBehaviour
 
     void Start()
     {
+        GameManager.Instance.playerMeleeRow = meleeRow;
+        GameManager.Instance.playerRangedRow = rangedRow;
+        GameManager.Instance.playerSiegeRow = siegeRow;
+        GameManager.Instance.enemyMeleeRow = enemyMeleeRow;
+        GameManager.Instance.enemyRangedRow = enemyRangedRow;
+        GameManager.Instance.enemySiegeRow = enemySiegeRow;
+
         GameManager.Instance.deckManager = FindObjectOfType<DeckManager>();
+        GameManager.Instance.aiController = FindObjectOfType<AIController>();
         leaderImage.sprite = GameManager.Instance.selectedLeader.artwork;
 
         // Zmiešaj balíèek
@@ -42,7 +50,9 @@ public class GameSetup : MonoBehaviour
         // TEST: Naplníme enemyDeck pre AI
         GameManager.Instance.enemyHand.Clear();
         GameManager.Instance.enemyDeck.Clear();
-        GameManager.Instance.enemyDeck.AddRange(GameManager.Instance.playerHand);
+        List<CardData> enemyCards = new List<CardData>(GameManager.Instance.playerDeck);
+        enemyCards.InsertRange(0, GameManager.Instance.playerHand); // Pridáme aj karty z ruky
+        GameManager.Instance.enemyDeck.AddRange(enemyCards);
         // Potiahni 10 kariet pre AI
         for (int i = 0; i < 10 && GameManager.Instance.enemyDeck.Count > 0; i++)
         {

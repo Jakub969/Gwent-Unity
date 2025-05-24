@@ -44,4 +44,12 @@ public class AIScoreManager : MonoBehaviour
         }
         return sum;
     }
+
+    public int CalculateAIScore()
+    {
+        int melee = CalculateRow(enemyMeleeRow);
+        int ranged = CalculateRow(enemyRangedRow);
+        int siege = CalculateRow(enemySiegeRow);
+        return melee + ranged + siege;
+    }
 }
