@@ -39,6 +39,18 @@ public class GameSetup : MonoBehaviour
             GameManager.Instance.playerDeck.Add(allCards[i]);
         }
 
+        // TEST: Naplníme enemyDeck pre AI
+        GameManager.Instance.enemyHand.Clear();
+        GameManager.Instance.enemyDeck.Clear();
+        GameManager.Instance.enemyDeck.AddRange(GameManager.Instance.playerHand);
+        // Potiahni 10 kariet pre AI
+        for (int i = 0; i < 10 && GameManager.Instance.enemyDeck.Count > 0; i++)
+        {
+            var card = GameManager.Instance.enemyDeck[0];
+            GameManager.Instance.enemyDeck.RemoveAt(0);
+            GameManager.Instance.enemyHand.Add(card);
+        }
+
 
         foreach (var data in GameManager.Instance.playerHand)
         {

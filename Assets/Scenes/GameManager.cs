@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public DeckManager deckManager; // pripojíš cez Inspector
     public LeaderData selectedLeader;
     public List<CardData> selectedCards = new List<CardData>();
+    public List<CardData> enemyDeck = new List<CardData>();
+    public List<CardData> enemyHand = new List<CardData>();
 
     void Awake()
     {
