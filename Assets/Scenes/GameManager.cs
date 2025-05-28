@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator ReturnToMenuAfterDelay()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("Menu");
     }
 
